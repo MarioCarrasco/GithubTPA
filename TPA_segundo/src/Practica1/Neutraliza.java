@@ -91,7 +91,6 @@ public class Neutraliza {
 	}
 
 	public static boolean esNeutralizada_DyV (int[][] m1, int[][] m2) {
-		
 		return true; // sentencia insertara para poder compilar
 	}
 

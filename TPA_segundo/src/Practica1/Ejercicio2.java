@@ -1,6 +1,6 @@
 package Practica1;
 
-public class ArraysInversos {
+public class Ejercicio2 {
 
 	public static void main(String[] args) {
 		int array1[] = {2,3,8,4,5,6};
