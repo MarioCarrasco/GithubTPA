@@ -1,6 +1,6 @@
 package Practica1;
 
-public class ArraysInversos {
+public class Ejercicio2 {
 
 	public static void main(String[] args) {
 		int array1[] = {2,3,8,4,5,6};
@@ -22,14 +22,12 @@ public class ArraysInversos {
 			if(array1[mitad]!=array2[array1.length-mitad-1]) {
 				return false;
 			}
-
 			boolean x = sonInversos(array1, array2, ini, mitad-1);
 			boolean y = sonInversos(array1, array2, mitad+1, fin);
 
 			if(x==false) {
 				return x;
 			}
-
 			if(y==false) {
 				return y;
 			}
