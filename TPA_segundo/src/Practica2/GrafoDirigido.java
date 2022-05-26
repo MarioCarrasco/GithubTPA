@@ -126,75 +126,76 @@ public class GrafoDirigido<T> {
             }
         });
     }
+    
+    
+    public void ordTopologica(GrafoDirigido<T> grafo) {
+    	
+    }
+
+    
 
     public static void main(String[] args) {
-        GrafoDirigido<String> g = new GrafoDirigido<>();
+        GrafoDirigido<String> G = new GrafoDirigido<>();
 
-        Vertice<String> a = new Vertice<>("A");
-        Vertice<String> b = new Vertice<>("B");
-        Vertice<String> c = new Vertice<>("C");
-        Vertice<String> d = new Vertice<>("D");
-        Vertice<String> e = new Vertice<>("E");
-        Vertice<String> f = new Vertice<>("F");
+        Vertice<String> a = new Vertice<>("1");
+        Vertice<String> b = new Vertice<>("2");
+        Vertice<String> c = new Vertice<>("3");
+        Vertice<String> d = new Vertice<>("4");
+        Vertice<String> e = new Vertice<>("5");
+        Vertice<String> f = new Vertice<>("6");
+        Vertice<String> g = new Vertice<>("7");
+        Vertice<String> h = new Vertice<>("8");
 
-        g.insertarVertice(b);
-        g.insertarVertice(a);
-        g.insertarVertice(c);
-        g.insertarVertice(d);
-        g.insertarVertice(e);
-        g.insertarVertice(f);
+        G.insertarVertice(b);
+        G.insertarVertice(a);
+        G.insertarVertice(c);
+        G.insertarVertice(d);
+        G.insertarVertice(e);
+        G.insertarVertice(f);
+        G.insertarVertice(g);
+        G.insertarVertice(h);
 
-        g.insertarArista(a, b, 2);
-        g.insertarArista(a, c, 3);
-        g.insertarArista(a, d, 1);
-        g.insertarArista(d, c, 5);
-        g.insertarArista(c, e, 5);
-        g.insertarArista(e, f, 5);
+        G.insertarArista(a, b, 0);
+        G.insertarArista(a, f, 0);
+        G.insertarArista(b, c, 0);
+        G.insertarArista(b, g, 0);
+        G.insertarArista(c, d, 0);
+        G.insertarArista(d, h, 0);
+        G.insertarArista(g, d, 0);
+        G.insertarArista(g, h, 0);
+        G.insertarArista(f, c, 0);
+        G.insertarArista(f, g, 0);
+        G.insertarArista(e, f, 0);
 
-        g.printListaAdyacencia();
 
-        System.out.println("Grado entrada C = " + g.gradoDeEntrada(c));
+        G.printListaAdyacencia();
+
+        System.out.println("Grado entrada 3 = " + G.gradoDeEntrada(c));
         System.out.print("Predecesores = ");
-        g.predecesores(c).stream().map(Vertice::getId).forEach(System.out::print);
+        G.predecesores(c).stream().map(Vertice::getId).forEach(System.out::print);
         System.out.println();
-        System.out.println("Grado salida C = " + g.gradoDeSalida(c));
+        System.out.println("Grado salida 3 = " + G.gradoDeSalida(c));
         System.out.print("Sucesores = ");
-        g.sucesores(c).stream().map(Vertice::getId).forEach(System.out::print);
+        G.sucesores(c).stream().map(Vertice::getId).forEach(System.out::print);
         System.out.println();
-        System.out.println("Grado salida A = " + g.gradoDeSalida(a));
-
-        System.out.println();
-        System.out.print("VERTICES: ");
-        System.out.println(g.vertices.stream().map(Vertice::getId).collect(Collectors.toList()));
-        System.out.print("ARISTAS: ");
-        System.out.println(g.aristas.stream().map(ar -> "{"+ar.getX().getId()+","+ar.getY().getId()+"->"+ar.getPonderacion()+"},").collect(Collectors.toList()));
-
-        g.eliminarVertice(f);
+        System.out.println("Grado salida 1 = " + G.gradoDeSalida(a));
 
         System.out.println();
         System.out.print("VERTICES: ");
-        System.out.println(g.vertices.stream().map(Vertice::getId).collect(Collectors.toList()));
+        System.out.println(G.vertices.stream().map(Vertice::getId).collect(Collectors.toList()));
         System.out.print("ARISTAS: ");
-        System.out.println(g.aristas.stream().map(ar -> "{"+ar.getX().getId()+","+ar.getY().getId()+"->"+ar.getPonderacion()+"},").collect(Collectors.toList()));
-
-        g.eliminarArista(e, f);
-
+        System.out.println(G.aristas.stream().map(ar -> "{"+ar.getX().getId()+","+ar.getY().getId()+"->"+ar.getPonderacion()+"},").collect(Collectors.toList()));
         System.out.println();
-        System.out.print("VERTICES: ");
-        System.out.println(g.vertices.stream().map(Vertice::getId).collect(Collectors.toList()));
-        System.out.print("ARISTAS: ");
-        System.out.println(g.aristas.stream().map(ar -> "{"+ar.getX().getId()+","+ar.getY().getId()+"->"+ar.getPonderacion()+"},").collect(Collectors.toList()));
-
-        System.out.println();
-        System.out.println(g.costeArista(a, c));
-        System.out.println(Objects.equals(g.costeArista(a, c), g.getArista(g.getVertice("A"), g.getVertice("C")).getPonderacion()));
 
         ArrayList<Vertice<String>> visitados = new ArrayList<>();
-        g.alcanzable(a, visitados);
+        G.alcanzable(a, visitados);
 
         visitados.forEach(stringVertice -> {
-            System.out.print(stringVertice.getId());
+            System.out.print(stringVertice.getId()+" ");
         });
+        System.out.println();
+        
+        //Llamada al metodo de ordenacion topologica
         System.out.println();
     }
 }
