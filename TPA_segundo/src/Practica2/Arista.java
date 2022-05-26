@@ -1,4 +1,4 @@
-package noDirigidoParaClase;
+package Practica2;
 
 public class Arista<T> {
     private final Vertice<T> x;

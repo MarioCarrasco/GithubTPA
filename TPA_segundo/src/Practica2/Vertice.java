@@ -1,4 +1,4 @@
-package noDirigidoParaClase;
+package Practica2;
 
 public class Vertice<T> {
     private final T id;
