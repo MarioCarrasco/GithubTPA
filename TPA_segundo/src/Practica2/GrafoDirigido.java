@@ -127,7 +127,12 @@ public class GrafoDirigido<T> {
         });
     }
     
-    
+    /*
+     * Mi idea es crear una lista en la que se insertaran los valores del grafo que no tengan predecesores
+     * en ese momento, se elegirá el primer vertice de esta lista (en este caso yo lo he elegido asi) y se 
+     * eliminara de la lista y del grafo, y cuando esta lista quede vacia se hara una llamada recursiva de nuevo 
+     * al método, haciendo lo mismo hasta que el grafo este vacio
+    */
     public void ordTopologica(GrafoDirigido<T> grafo) {
     	
     }
