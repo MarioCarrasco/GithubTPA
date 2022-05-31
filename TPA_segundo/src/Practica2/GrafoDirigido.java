@@ -159,25 +159,49 @@ public class GrafoDirigido<T> {
 		return verticesDevolver;
 	}
 
-
-	public static ArrayList<Vertice<String>> ordTopologica2(GrafoDirigido<String> grafo) {
-		ArrayList<Vertice<String>> listaVisitados = new ArrayList<>(); //lista donde guardare los vertices a devolver
-		ArrayList<Vertice<String>> listaVerticesGrafo = (ArrayList<Vertice<String>>) grafo.getVertices(); //vertices del grafo
+	//elinminar de la lista de predecesores los vertices que ya haya visitado
+	public static List<Vertice<String>> ordTopologica2(GrafoDirigido<String> grafo) {
+		List<Vertice<String>> listaVisitados = new ArrayList<>(); //lista donde guardare los vertices a devolver
+		List<Vertice<String>> listaVerticesGrafo = (ArrayList<Vertice<String>>) grafo.getVertices(); //vertices del grafo
+		//System.out.println(listaVerticesGrafo);
 
 		int i=0;
-		while(!listaVerticesGrafo.isEmpty()) {
-			for(int j=0; j<listaVerticesGrafo.size(); j++) {
-				if(grafo.predecesores(listaVerticesGrafo.get(i)).isEmpty() || listaVisitados.contains(grafo.predecesores(listaVerticesGrafo.get(i)).get(j))) {
-					listaVisitados.add(listaVerticesGrafo.get(i));
-					System.out.println(listaVerticesGrafo.get(i).getId());
-					listaVerticesGrafo.remove(i);
+		while(!listaVerticesGrafo.isEmpty() && i<listaVerticesGrafo.size()) {
+			if(grafo.predecesores(listaVerticesGrafo.get(i)).isEmpty()) {
+				listaVisitados.add(listaVerticesGrafo.get(i));
+				listaVerticesGrafo.remove(i);
+			}
+			else {
+				List<Vertice<String>> listaTemporalPredecesores = grafo.predecesores(listaVerticesGrafo.get(i));
+				/*System.out.println(listaTemporalPredecesores);
+
+				for(int j=0; j<listaVisitados.size(); j++) {//eliminamos de la lista de predecesores los vertices visitados
+					listaTemporalPredecesores.remove(listaVisitados.get(j));
 				}
-				j++;
+				System.out.println(listaTemporalPredecesores);*/
+
+				//vamos a comprobar que los vertices de la lista de predecesores no estan en la lista de visitados
+				for(int x=0; x<listaTemporalPredecesores.size(); x++) {
+					for(int y=0; y<listaVisitados.size(); y++) {
+						
+					}
+				}
+
+
+				if(listaTemporalPredecesores.isEmpty()) {//si despues de eliminar los vertices visitados la lista queda vacia, no tendrá predecesores
+					listaVisitados.add(listaVerticesGrafo.get(i));
+					listaVerticesGrafo.remove(i);
+					System.out.println("SI voy");
+
+				}
+				else {
+					System.out.println("NO voy");
+				}
 			}
 			i++;
 		}
 
-		return listaVerticesGrafo;
+		return listaVisitados;
 	}
 
 
@@ -217,7 +241,7 @@ public class GrafoDirigido<T> {
 		G.insertarArista(e, f, 0);
 
 		//Llamada al metodo de ordenacion topologica
-		ArrayList<Vertice<String>> verticesDevolvueltos = ordTopologica2(G);
+		List<Vertice<String>> verticesDevolvueltos = ordTopologica2(G);
 		int tamanioListaDevuelta = verticesDevolvueltos.size();
 		System.out.println("Tamaño de la lista devuelta: "+tamanioListaDevuelta);
 		System.out.print("Ordenacion topologica: ");
@@ -226,6 +250,24 @@ public class GrafoDirigido<T> {
 			System.out.print(verticesDevolvueltos.get(j).getId()+" ");
 		}
 		System.out.println();
+
+		
+		List<Vertice<String>> listaTemporalPredecesores = G.predecesores(c);
+		List<Vertice<String>> listaVerticesGrafo = (ArrayList<Vertice<String>>) G.getVertices(); //vertices del grafo
+		List<Vertice<String>> listaVisitados = new ArrayList<>(); //lista donde guardare los vertices a devolver
+
+		listaVisitados.add(a);
+		listaVisitados.add(b);
+		listaVisitados.add(c);
+		listaVisitados.add(d);
+		listaVisitados.add(e);
+		listaVisitados.add(f);
+
+		
+		listaTemporalPredecesores.remove(listaTemporalPredecesores.get(1));
+		System.out.println(listaTemporalPredecesores);
+		listaTemporalPredecesores = G.predecesores(c).stream().filter(n->!listaVisitados.contains(n)).collect(Collectors.toList());
+		System.out.println(G.predecesores(c).stream().filter(n->!listaVisitados.contains(n)).collect(Collectors.toList()));
 
 		/*//PRUEBAS
 		GrafoDirigido<String> grafo = new GrafoDirigido<>();
