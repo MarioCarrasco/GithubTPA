@@ -181,13 +181,9 @@ public class GrafoDirigido<T> {
 				System.out.println(listaTemporalPredecesores);*/
 
 				//vamos a comprobar que los vertices de la lista de predecesores no estan en la lista de visitados
-				for(int x=0; x<listaTemporalPredecesores.size(); x++) {
-					for(int y=0; y<listaVisitados.size(); y++) {
-						
-					}
-				}
-
-
+				grafo.predecesores(listaVerticesGrafo.get(i)).stream().filter(n->!listaVisitados.contains(n)).collect(Collectors.toList());
+				System.out.println(grafo.predecesores(listaVerticesGrafo.get(i)).stream().filter(n->!listaVisitados.contains(n)).collect(Collectors.toList()));
+				
 				if(listaTemporalPredecesores.isEmpty()) {//si despues de eliminar los vertices visitados la lista queda vacia, no tendrá predecesores
 					listaVisitados.add(listaVerticesGrafo.get(i));
 					listaVerticesGrafo.remove(i);
@@ -200,7 +196,6 @@ public class GrafoDirigido<T> {
 			}
 			i++;
 		}
-
 		return listaVisitados;
 	}
 
