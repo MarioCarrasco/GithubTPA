@@ -170,9 +170,24 @@ public class GrafoDirigido<T> {
 		List<Vertice<T>> visitados = new ArrayList<>(); //lista de visitados
 		int i=0;
         while(visitados.size()!=vertices.size()) { //recorremos todos los vertices del grafo            
+        	
             if(!visitados.contains(vertices.get(i%vertices.size()))) {
-                List<Vertice<T>> predecesores = this.predecesores(vertices.get(i%vertices.size())).stream().filter(n->!visitados.contains(n)).collect(Collectors.toList()); // Sacamos los predecesores verificando que no esta en la lista de eliminados
-                if(predecesores.size()==0) { //si la lista resultante de eliminar los vertices eliminados de los predecesores del vertice esta vacía, esta no tendra predecesores
+            	//predecesores que no estan en la lista de eliminados
+            	List<Vertice<T>> predecesores = this.predecesores(vertices.get(i%vertices.size()));
+            	
+            	/*System.out.println(predecesores);
+            	for(int j=0; j<predecesores.size(); j++) {
+            		for(int k=0; k<visitados.size(); k++) {
+            			if(predecesores.get(j).getId()==visitados.get(k).getId()) {
+            				predecesores.remove(j);
+            			}
+            		}
+            	}
+            	System.out.println(predecesores+"\n");*/
+            	
+            	List<Vertice<T>> listResultado = predecesores.stream().filter(e -> !visitados.contains(e)).collect(Collectors.toList()); //en esta lista quedan los vertices predecesores que no esten en visitados
+            	
+            	if(listResultado.size()==0) { //si la lista resultante de eliminar los vertices eliminados de los predecesores del vertice esta vacía, esta no tendra predecesores
                 	visitados.add(vertices.get(i%vertices.size()));
                 } 
             }
@@ -220,7 +235,8 @@ public class GrafoDirigido<T> {
         visitados = (ArrayList<Vertice<String>>) G.ordTopologica();
         
         System.out.print("Ordenacion topologica: ");
-        visitados.forEach(vertice -> {System.out.print(vertice.getId()+" ");});
+                
+        visitados.forEach(vertice -> {System.out.print(vertice.getId()+" ");});//la ostia, mucho mas python, usar mas
 
 	}
 }
