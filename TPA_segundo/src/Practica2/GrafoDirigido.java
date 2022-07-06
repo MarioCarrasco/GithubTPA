@@ -128,65 +128,17 @@ public class GrafoDirigido<T> {
 
 	/*
 	 * Mi idea es crear una lista en la que se insertaran los valores del grafo que no tengan predecesores
-	 * (los visitados), haciendo esto recorriendo todos los vertices del grafo, los cuales
-	 * se irán eliminando según sean visitados. Esto se repetirá hasta que la lista de vertices del grafo quede vacía.
+	 * (los visitados), haciendo esto recorriendo todos los vertices del grafo. Esto se repetirá hasta que la lista de vertices del grafo quede vacía.
 	 * se devolverá la lista de vertices visitados.
 	 */
-
-	//elinminar de la lista de predecesores los vertices que ya haya visitado
-	public static List<Vertice<String>> ordTopologicaPrueba(GrafoDirigido<String> grafo) { //primera version (NO FUNCIONA)
-		List<Vertice<String>> listaVisitados = new ArrayList<>(); //lista donde guardare los vertices a devolver
-		List<Vertice<String>> listaVerticesGrafo = (ArrayList<Vertice<String>>) grafo.getVertices(); //vertices del grafo
-		//System.out.println(listaVerticesGrafo);
-
-		int i=0;
-		while(!listaVerticesGrafo.isEmpty() && i<listaVerticesGrafo.size()) {
-			if(grafo.predecesores(listaVerticesGrafo.get(i)).isEmpty()) {
-				listaVisitados.add(listaVerticesGrafo.get(i));
-				listaVerticesGrafo.remove(i);
-			}
-			else {
-				List<Vertice<String>> listaTemporalPredecesores = grafo.predecesores(listaVerticesGrafo.get(i));
-				/*for(int j=0; j<listaVisitados.size(); j++) {//eliminamos de la lista de predecesores los vertices visitados
-					listaTemporalPredecesores.remove(listaVisitados.get(j));
-				}*/
-
-				//vamos a comprobar que los vertices de la lista de predecesores no estan en la lista de visitados
-				//System.out.println(listaTemporalPredecesores);
-				
-				if(listaTemporalPredecesores.isEmpty()) {//si despues de eliminar los vertices visitados la lista queda vacia, no tendrá predecesores
-					listaVisitados.add(listaVerticesGrafo.get(i));
-					listaVerticesGrafo.remove(i);
-					System.out.println("SI voy");
-					i=0;
-				}
-			}
-			i++;
-		}
-		return listaVisitados;
-	}
-	
 	public List<Vertice<T>> ordTopologica() {
 		List<Vertice<T>> visitados = new ArrayList<>(); //lista de visitados
 		int i=0;
         while(visitados.size()!=vertices.size()) { //recorremos todos los vertices del grafo            
-        	
             if(!visitados.contains(vertices.get(i%vertices.size()))) {
             	//predecesores que no estan en la lista de eliminados
             	List<Vertice<T>> predecesores = this.predecesores(vertices.get(i%vertices.size()));
-            	
-            	/*System.out.println(predecesores);
-            	for(int j=0; j<predecesores.size(); j++) {
-            		for(int k=0; k<visitados.size(); k++) {
-            			if(predecesores.get(j).getId()==visitados.get(k).getId()) {
-            				predecesores.remove(j);
-            			}
-            		}
-            	}
-            	System.out.println(predecesores+"\n");*/
-            	
             	List<Vertice<T>> listResultado = predecesores.stream().filter(e -> !visitados.contains(e)).collect(Collectors.toList()); //en esta lista quedan los vertices predecesores que no esten en visitados
-            	
             	if(listResultado.size()==0) { //si la lista resultante de eliminar los vertices eliminados de los predecesores del vertice esta vacía, esta no tendra predecesores
                 	visitados.add(vertices.get(i%vertices.size()));
                 } 
@@ -236,7 +188,8 @@ public class GrafoDirigido<T> {
         
         System.out.print("Ordenacion topologica: ");
                 
-        visitados.forEach(vertice -> {System.out.print(vertice.getId()+" ");});//la ostia, mucho mas python, usar mas
+        //visitados.forEach(vertice -> {System.out.print(vertice.getId()+" ");});
+        visitados.stream().map(Vertice::getId).forEach(System.out::print);
 
 	}
 }
