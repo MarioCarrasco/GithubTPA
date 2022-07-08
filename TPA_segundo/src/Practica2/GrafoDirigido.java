@@ -187,9 +187,8 @@ public class GrafoDirigido<T> {
         visitados = (ArrayList<Vertice<String>>) G.ordTopologica();
         
         System.out.print("Ordenacion topologica: ");
-                
         //visitados.forEach(vertice -> {System.out.print(vertice.getId()+" ");});
-        visitados.stream().map(Vertice::getId).forEach(System.out::print);
+        visitados.stream().map(Vertice::getId).forEach(System.out::print); //imprimimos los elementos de la lista devuelta uno a uno
 
 	}
 }
